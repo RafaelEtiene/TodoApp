@@ -14,13 +14,12 @@ namespace ToDoApi.Controllers
         private readonly ToDoContextDb _context = new ToDoContextDb();
 
         [HttpGet("GetAllTasks", Name = "GetAllTasks")]
-        public List<TaskToDo> GetAllTasks()
+        public async Task<List<TaskToDo>> GetAllTasks()
         {
             try
             {
-                List<TaskToDo> tasks = new List<TaskToDo>();
-                var task = _context.Task.Select(e => e).ToList();
-                return task;
+                var tasks = await _context.Task.Select(e => e).ToListAsync();
+                return tasks;
             }
             catch(Exception e)
             {
@@ -29,21 +28,56 @@ namespace ToDoApi.Controllers
             
         }
 
-        [HttpGet("GetTaskByUser", Name = "GetTaskByUser")]
-        public List<TaskToDo> GetTaskById(int idUser)
+        [HttpGet("GetTaskByUser/{idUsert}", Name = "GetTaskByUser")]
+        public async Task<List<TaskToDo>> GetTaskById(int idUser)
         {
             try
             {
-                List<TaskToDo> tasks = new List<TaskToDo>();
-                var task = _context.Task.Where(i => i.idUser == idUser).Select(e => e).ToList();
-                Console.WriteLine("legal");
-                return task;
+                var tasks = await _context.Task.Where(i => i.idUser == idUser).Select(e => e).ToListAsync();
+                return tasks;
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
 
+        }
+
+        [HttpPost("InsertTask", Name = "InsertTask")]
+        public async Task<TaskToDo> InsertTask(TaskToDo task)
+        {
+            try
+            {
+                var add = _context.Task.Add(task);
+
+                await _context.SaveChangesAsync();
+                return task;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        [HttpDelete("DeleteTask", Name = "DeleteTask")]
+        public async Task<IActionResult> DeleteTask(int idTask)
+        {
+            try
+            {
+                TaskToDo task = await _context.Task.Where(t => t.idTask == idTask).Select(e => e).FirstAsync();
+                if (task == null)
+                    return NotFound();
+
+                var remove = _context.Task.Remove(task);
+
+                await _context.SaveChangesAsync();
+                return Ok();
+                
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
     }
