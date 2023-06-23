@@ -5,17 +5,9 @@
   <div class="card-body">
     <div class="list" id="taskList">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item ">
+        <li class="list-group-item " *ngFor="let task of tasks">
           <input type="checkbox"  class="form-check-input" style="left: 1rem;" aria-hidden="true" /> 
-          Dormir 8h
-        </li>
-        <li class="list-group-item ">
-          <input type="checkbox"  class="form-check-input" style="left: 1rem;" aria-hidden="true" /> 
-          Dormir 8h
-        </li>
-        <li class="list-group-item ">
-          <input type="checkbox"  class="form-check-input" style="left: 1rem;" aria-hidden="true" /> 
-          Dormir 8h
+          {{task.description}}
         </li>
       </ul>
     </div>
