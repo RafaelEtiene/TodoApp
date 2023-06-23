@@ -28,7 +28,7 @@ namespace ToDoApi.Controllers
             
         }
 
-        [HttpGet("GetTaskByUser/{idUsert}", Name = "GetTaskByUser")]
+        [HttpGet("GetTaskByUser/{idUser}", Name = "GetTaskByUser")]
         public async Task<List<TaskToDo>> GetTaskById(int idUser)
         {
             try
@@ -44,7 +44,7 @@ namespace ToDoApi.Controllers
         }
 
         [HttpPost("InsertTask", Name = "InsertTask")]
-        public async Task<TaskToDo> InsertTask(TaskToDo task)
+        public async Task<TaskToDo> InsertTask([FromBody]TaskToDo task)
         {
             try
             {

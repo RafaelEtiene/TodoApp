@@ -34,7 +34,6 @@ namespace ToDoApi.Data
             {
                 entity.HasKey(e => e.idUser);
                 entity.Property(e => e.name).IsRequired();
-                entity.HasMany(e => e.tasks);
             });
         }
 

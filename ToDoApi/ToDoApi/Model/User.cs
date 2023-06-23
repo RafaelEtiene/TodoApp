@@ -11,6 +11,5 @@ namespace ToDoApi.Model
         public string name { get; set; }
         [Column]
         public string email { get; set; }
-        public List<TaskToDo> tasks { get; set; }
     }
 }
