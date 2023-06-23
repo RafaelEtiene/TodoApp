@@ -8,16 +8,12 @@ import { TodoTaskService } from 'src/api/todo-task.service';
   styleUrls: ['./card-task.component.css']
 })
 export class CardTaskComponent implements OnInit {
-  ngOnInit(): void {
-      
-  }
-
-  constructor(private taskService: TodoTaskService){}
   public tasks: TaskViewModel[] = [];
 
-  public GetTasks(): void {
+  constructor(private taskService: TodoTaskService){}
+  ngOnInit(): void {
     this.taskService.GetTasks().subscribe(r => {
       this.tasks = r;
     })
-  }
+}
 }

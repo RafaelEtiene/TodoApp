@@ -7,10 +7,10 @@ import { TaskViewModel } from 'src/ViewModel/TaskViewModel';
   providedIn: 'root'
 })
 export class TodoTaskService {
-  private url: string = "https://localhost:7287/ToDo/"
+  private url: string = "http://localhost:7287/ToDo"
   constructor(private httpClient: HttpClient) { }
 
   public GetTasks(): Observable<TaskViewModel[]> {
-    return this.httpClient.get<TaskViewModel[]>(this.url + "GetAllTasks")
+    return this.httpClient.get<TaskViewModel[]>(this.url + "/GetAllTasks")
   }
 }
