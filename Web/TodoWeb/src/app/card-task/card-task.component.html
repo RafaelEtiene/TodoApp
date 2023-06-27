@@ -1,4 +1,4 @@
-<div id="cardComponent" class="card mx-auto">
+<div id="cardComponent" class="card" *ngIf="!mostrarModal">
   <div class="card-header">
     Segunda
   </div>
@@ -8,13 +8,27 @@
         <li class="list-group-item " *ngFor="let task of tasks">
           <input type="checkbox"  class="form-check-input" style="left: 1rem;" aria-hidden="true" /> 
           {{task.description}}
+					<button class="btn btn-danger btn-sm" style="position: absolute; right: 10px; line-height: 10px;" (click)="deleteTask(task.idTask)">Delete</button>
         </li>
+				
       </ul>
     </div>
-   
     <div class="button">
-      <button class="btn btn-info btn-sm">Adicionar</button>
+      <button class="btn btn-info btn-sm" (click)="adicionarTask()">Adicionar</button>
     </div>
-  </div>
-  
+  </div> 
 </div>
+
+<div class="card mx-auto" id="cardComponent" *ngIf="mostrarModal">
+	<div class="card-dialog">
+		<div class="card-header">
+			<h5>Adicionar tarefa</h5>
+			</div>
+			<div class="card-body">
+				<label class="col-form-label">Descrição</label>
+				<input type="text" class="form-control" [(ngModel)]="description" /> 
+				<button type="submit" class="btn btn-primary" style="margin-top: 10px;" (click)="insertNewTask()">Salvar</button>
+		</div>
+	</div>
+</div>
+

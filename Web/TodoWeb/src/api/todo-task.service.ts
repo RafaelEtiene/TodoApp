@@ -11,6 +11,14 @@ export class TodoTaskService {
   constructor(private httpClient: HttpClient) { }
 
   public GetTasks(): Observable<TaskViewModel[]> {
-    return this.httpClient.get<TaskViewModel[]>(this.url + "/GetAllTasks")
+    return this.httpClient.get<TaskViewModel[]>(`${this.url}/GetAllTasks`)
+  }
+
+  public InsertTask(task: TaskViewModel) : Observable<TaskViewModel> {
+    return this.httpClient.post<TaskViewModel>(`${this.url}/InsertTask`, task)
+  }
+
+  public DeleteTask(idTask: number) : Observable<TaskViewModel> {
+    return this.httpClient.delete<TaskViewModel>(`${this.url}/DeleteTask?idTask=${idTask}`)
   }
 }
