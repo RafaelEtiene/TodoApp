@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Net;
 using ToDoApi.Data;
 using ToDoApi.Model;
 
@@ -13,53 +14,63 @@ namespace ToDoApi.Controllers
     {
         private readonly ToDoContextDb _context = new ToDoContextDb();
 
-        [HttpGet("GetAllTasks", Name = "GetAllTasks")]
-        public async Task<List<TaskToDo>> GetAllTasks()
+        [HttpGet("GetAllTasks")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetAllTasks()
         {
             try
             {
                 var tasks = await _context.Task.Select(e => e).ToListAsync();
-                return tasks;
+                return Ok(tasks);
             }
             catch(Exception e)
             {
-                throw new Exception(e.Message);
+                return BadRequest(new Exception(e.Message));
             }
             
         }
 
-        [HttpGet("GetTaskByUser/{idUser}", Name = "GetTaskByUser")]
-        public async Task<List<TaskToDo>> GetTaskById(int idUser)
+        [HttpGet("GetTaskByUser/{idUser}")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetTaskById(int idUser)
         {
             try
             {
                 var tasks = await _context.Task.Where(i => i.idUser == idUser).Select(e => e).ToListAsync();
-                return tasks;
+                return Ok(tasks);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return BadRequest(new Exception(e.Message));
             }
 
         }
 
-        [HttpPost("InsertTask", Name = "InsertTask")]
-        public async Task<TaskToDo> InsertTask([FromBody]TaskToDo task)
+        [HttpPost("InsertTask")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> InsertTask([FromBody]TaskToDo task)
         {
             try
             {
                 var add = _context.Task.Add(task);
 
                 await _context.SaveChangesAsync();
-                return task;
+                return Ok(task);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return BadRequest(new Exception(e.Message));
             }
         }
 
-        [HttpDelete("DeleteTask", Name = "DeleteTask")]
+        [HttpDelete("DeleteTask")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.NotFound)]
+
         public async Task<IActionResult> DeleteTask(int idTask)
         {
             try
@@ -76,7 +87,7 @@ namespace ToDoApi.Controllers
             }
             catch(Exception e)
             {
-                throw new Exception(e.Message);
+                return BadRequest(new Exception(e.Message));
             }
         }
 

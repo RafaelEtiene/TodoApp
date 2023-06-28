@@ -8,9 +8,9 @@ namespace ToDoApi.Model
         [Key]
         public int idTask { get; set; }
         [Column]
-        public String Description { get; set; }
+        public string Description { get; set; }
         [Column]
-        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; }
         [ForeignKey("userId")]
         public int idUser { get; set; }
     }
