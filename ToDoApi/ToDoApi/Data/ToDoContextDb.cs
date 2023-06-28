@@ -27,7 +27,7 @@ namespace ToDoApi.Data
             modelBuilder.Entity<Model.TaskToDo>(entity =>
             {
                 entity.HasKey(e => e.idTask);
-                entity.Property(e => e.Description).IsRequired();
+                entity.Property(e => e.description).IsRequired();
             });
 
             modelBuilder.Entity<User>(entity =>

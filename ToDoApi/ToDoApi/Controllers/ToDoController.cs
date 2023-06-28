@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using ToDoApi.Data;
 using ToDoApi.Model;
 
@@ -31,7 +32,7 @@ namespace ToDoApi.Controllers
             
         }
 
-        [HttpGet("GetTaskByUser/{idUser}")]
+        [HttpGet("GetTaskById/{idTask}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetTaskById(int idUser)
@@ -56,6 +57,30 @@ namespace ToDoApi.Controllers
             try
             {
                 var add = _context.Task.Add(task);
+
+                await _context.SaveChangesAsync();
+                return Ok(task);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new Exception(e.Message));
+            }
+        }
+
+        [HttpPost("UpdateTask/{idTask}")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UpdateTask([FromBody] TaskToDo task, int idTask)
+        {
+            try
+            {
+                TaskToDo? taskUpdate = await _context.Task.FindAsync(idTask);
+                if (task == null)
+                    return NotFound();
+
+                taskUpdate.description = task.description;
+                taskUpdate.date = task.date;
+                taskUpdate.check = task.check;
 
                 await _context.SaveChangesAsync();
                 return Ok(task);

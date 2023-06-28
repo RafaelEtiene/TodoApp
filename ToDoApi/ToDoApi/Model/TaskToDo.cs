@@ -7,11 +7,15 @@ namespace ToDoApi.Model
     {
         [Key]
         public int idTask { get; set; }
+
         [Column]
-        public string Description { get; set; }
+        public string description { get; set; }
+
         [Column]
-        public DateTime Date { get; set; }
-        [ForeignKey("userId")]
+        public DateTime date { get; set; }
+
         public int idUser { get; set; }
+
+        public int check { get; set; }
     }
 }
