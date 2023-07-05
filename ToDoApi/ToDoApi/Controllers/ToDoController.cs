@@ -35,12 +35,12 @@ namespace ToDoApi.Controllers
         [HttpGet("GetTaskById/{idTask}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetTaskById(int idUser)
+        public async Task<IActionResult> GetTaskById(int idTask)
         {
             try
             {
-                var tasks = await _context.Task.Where(i => i.idUser == idUser).Select(e => e).ToListAsync();
-                return Ok(tasks);
+                var todoTask = await _context.Task.Where(i => i.idTask == idTask).Select(e => e).FirstAsync(); ;
+                return Ok(todoTask);
             }
             catch (Exception e)
             {
@@ -67,7 +67,7 @@ namespace ToDoApi.Controllers
             }
         }
 
-        [HttpPost("UpdateTask/{idTask}")]
+        [HttpPut("UpdateTask/{idTask}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> UpdateTask([FromBody] TaskToDo task, int idTask)
@@ -75,7 +75,7 @@ namespace ToDoApi.Controllers
             try
             {
                 TaskToDo? taskUpdate = await _context.Task.FindAsync(idTask);
-                if (task == null)
+                if (taskUpdate == null)
                     return NotFound();
 
                 taskUpdate.description = task.description;
@@ -83,7 +83,7 @@ namespace ToDoApi.Controllers
                 taskUpdate.check = task.check;
 
                 await _context.SaveChangesAsync();
-                return Ok(task);
+                return Ok(taskUpdate);
             }
             catch (Exception e)
             {

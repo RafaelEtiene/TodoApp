@@ -12,9 +12,10 @@ export class CardTaskComponent implements OnInit {
   public description: string = "";
   public tasks: TaskViewModel[] = [];
   public mostrarModal: boolean = false;
+  public task: TaskViewModel = { idTask: 0 };
 
   constructor(private taskService: TodoTaskService) { }
-  ngOnInit(): void {
+  ngOnInit(){
     this.getTasks();
   }
 
@@ -27,23 +28,40 @@ export class CardTaskComponent implements OnInit {
     this.mostrarModal = true;
   }
 
-  insertNewTask(): void {
-    var taskData: TaskViewModel =
+  insertNewTask(){
+    this.task =
     {
       idTask: 0,
       idUser: 1,
-      description: this.description,
-      createDate: new Date()
+      description: "",
+      date: new Date(),
+      check: 0,
     }
-    this.taskService.InsertTask(taskData).subscribe(r => {
+    this.taskService.InsertTask(this.task).subscribe(r => {
       this.mostrarModal = false;
       this.getTasks();
     })
-    
   }
   deleteTask(idTask: number){
     this.taskService.DeleteTask(idTask).subscribe(r => {
       this.getTasks();
     });
+  }
+
+  getTaskById(idTask: number){
+    debugger
+    this.taskService.GetTaskById(idTask).subscribe(r => {
+      this.task = r;
+    })
+  }
+
+  editTask(idTask: number){
+
+    this.mostrarModal = true;
+    this.getTaskById(idTask);
+  }
+
+  cancelar(){
+    this.mostrarModal = false;
   }
 }

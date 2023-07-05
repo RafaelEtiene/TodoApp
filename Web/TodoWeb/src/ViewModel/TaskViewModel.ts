@@ -1,7 +1,8 @@
 export interface TaskViewModel {
    idTask: number;
-   description: string;
-   createDate: Date;
-   idUser: number;
+   description?: string;
+   date?: Date;
+   idUser?: number;
+   check?: number;
 
 }

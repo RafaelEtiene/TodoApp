@@ -21,4 +21,12 @@ export class TodoTaskService {
   public DeleteTask(idTask: number) : Observable<TaskViewModel> {
     return this.httpClient.delete<TaskViewModel>(`${this.url}/DeleteTask?idTask=${idTask}`)
   }
+
+  public UpdateTask(task: TaskViewModel) : Observable<boolean> {
+    return this.httpClient.put<boolean>(`${this.url}/UpdateTask?idTask=${task.idTask}`, task)
+  }
+
+  public GetTaskById(idTask: number) : Observable<TaskViewModel> {
+    return this.httpClient.get<TaskViewModel>(`${this.url}/GetTaskById?idTask=${idTask}`)    
+  }
 }

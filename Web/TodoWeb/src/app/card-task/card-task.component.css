@@ -4,11 +4,18 @@
 }
 
 #taskList {
-  padding-bottom: 15px;
+  padding-bottom: 2em;
   font-weight: 600;
   line-height: 1em;
 }
 
+.buttonTask {
+  top: 10px;
+  display: flex;
+  justify-content: end;
+  right: 10%;
+}
+
 input {
-  margin-right: 1.5rem;
+  margin-right: 1.5em;
 }
