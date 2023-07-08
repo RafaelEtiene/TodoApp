@@ -27,6 +27,6 @@ export class TodoTaskService {
   }
 
   public GetTaskById(idTask: number) : Observable<TaskViewModel> {
-    return this.httpClient.get<TaskViewModel>(`${this.url}/GetTaskById?idTask=${idTask}`)    
+    return this.httpClient.get<TaskViewModel>(`${this.url}/GetTaskById/${idTask}`)    
   }
 }

@@ -49,7 +49,6 @@ export class CardTaskComponent implements OnInit {
   }
 
   getTaskById(idTask: number){
-    debugger
     this.taskService.GetTaskById(idTask).subscribe(r => {
       this.task = r;
     })

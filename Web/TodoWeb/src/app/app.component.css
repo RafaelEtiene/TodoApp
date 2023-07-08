@@ -1,13 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 *{
-  margin: 0;
-  padding: 0;
-  
+  height:100vh;
+  background-image: url("https://images-cdn.welcomesoftware.com/Zz03ZTY0Mzk3MDhlNDgxMWViYmRmNWY3MjZjM2QxZTdiZg==");
+  font-family: 'Roboto', sans-serif;
 }
 
 #cardTask {
-  padding: 20px;
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
