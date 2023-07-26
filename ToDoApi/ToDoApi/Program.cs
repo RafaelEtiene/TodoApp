@@ -20,7 +20,8 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 //  For Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddErrorDescriber<IdentityErrorDescriber>();
 
 //  Adding Authentication
 builder.Services.AddAuthentication(options =>

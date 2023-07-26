@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,7 +15,7 @@ namespace ToDoApi.Controllers
     public class ToDoController : ControllerBase
     {
         private readonly ToDoContextDb _context = new ToDoContextDb();
-
+        [Authorize]
         [HttpGet("GetAllTasks")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
